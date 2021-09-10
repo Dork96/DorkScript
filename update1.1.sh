@@ -36,4 +36,6 @@ else
   exit 0
 fi
 sleep 1
-
+cd /usr/bin
+wget -O menu https://raw.githubusercontent.com/Dork96/DorkScript/main/menu.sh && chmod +x menu 
+wget -O menu-ssh https://raw.githubusercontent.com/Dork96/DorkScript/main/menu-ssh.sh && chmod +x menu-ssh
