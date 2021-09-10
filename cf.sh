@@ -7,8 +7,8 @@ echo "Checking VPS"
 apt install jq curl -y
 DOMAIN=script.wuzzzssh.xyz
 sub=$(</dev/urandom tr -dc a-z0-9 | head -c4)
-SUB_DOMAIN=${sub}script.wuzzzssh.xyz
-WILDCARD=*.${sub}script.wuzzzssh.xyz
+SUB_DOMAIN=${sub}.script.wuzzzssh.xyz
+WILDCARD=*.${sub}.script.wuzzzssh.xyz
 CF_ID=amingnurfalah@gmail.com
 CF_KEY=9fa80a9b75ba0ff00e5eda15a930425fd0f7d
 set -euo pipefail
@@ -39,6 +39,7 @@ RESULT=$(curl -sLX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_r
      --data '{"type":"A","name":"'${SUB_DOMAIN}'","content":"'${IP}'","ttl":120,"proxied":false}')
 echo "Host : $SUB_DOMAIN"
 echo $SUB_DOMAIN > /root/domain
+echo $SUB_DOMAIN > /etc/v2ray/domain
 sleep 5
 echo "Updating DNS for ${WILDCARD}..."
 ZONE=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones?name=${DOMAIN}&status=active" \
