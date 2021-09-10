@@ -38,7 +38,9 @@ RESULT=$(curl -sLX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_r
      -H "Content-Type: application/json" \
      --data '{"type":"A","name":"'${SUB_DOMAIN}'","content":"'${IP}'","ttl":120,"proxied":false}')
 echo "Host : $SUB_DOMAIN"
-mkdir /etc/v2ray/domain
+mkdir /etc/v2ray;
+
+#echo "IP=" >> /var/lib/premium-script/ipvps.conf
 echo $SUB_DOMAIN > /root/domain
 echo $SUB_DOMAIN > /etc/v2ray/domain
 sleep 5
