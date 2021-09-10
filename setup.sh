@@ -14,7 +14,7 @@ else
 clear
 echo -e ""
 echo -e "======================================="
-echo -e "${RED}====[ Permission Denied...!!! ]===={NC}"
+echo -e "${RED}====[ Permission Denied...!!! ]====${NC}"
 echo -e "     IP VPS ANDA BELUM TERDAFTAR"
 echo -e "Contact WA https//wa.me/+6285717614888"
 echo -e "For Registration IP VPS"
