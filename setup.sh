@@ -135,6 +135,5 @@ else
 fi
 echo " Reboot 10 Detik"
 sleep 10
-rm -f setup.sh
-rm -d Dork-script
+rm setup.sh
 reboot
