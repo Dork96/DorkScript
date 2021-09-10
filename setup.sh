@@ -6,6 +6,10 @@ NC='\e[0m'
 MYIP=$(wget -qO- icanhazip.com);
 echo -e  "${RED}Checking VPS${NC}"
 sleep 2
+if [-f "/etc/v2ray/domain"]; then
+echo "Script Sudah Terinstall!!"
+exit 0
+fi
 IZIN=$(curl https://raw.githubusercontent.com/Dork96/rentScript/main/ipvps | grep $MYIP)
 if [ $MYIP = $IZIN ]; then
 echo -e "${GREEN}Permission Accepted...${NC}"
@@ -14,17 +18,17 @@ else
 clear
 echo -e ""
 echo -e "======================================="
-echo -e "======${RED}[ Permission Denied...!!! ]${NC}======"
-echo -e "     IP VPS ANDA BELUM TERDAFTAR"
+echo -e ""
+echo -e "${RED}Permission Denied...!!! ${NC}"
+echo -e "IP VPS ANDA BELUM TERDAFTAR"
 echo -e "Contact WA https//wa.me/+6285717614888"
 echo -e "For Registration IP VPS"
+echo -e ""
 echo -e "======================================="
 echo -e ""
 rm setup.sh
 exit 0
 fi
-
-
 sysctl -w net.ipv6.conf.all.disable_ipv6 = 1
 sysctl -w net.ipv6.conf.default.disable_ipv6 = 1
 apt update
