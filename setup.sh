@@ -27,7 +27,7 @@ exit 0
 fi
 echo -e  "${RED}Checking VPS Domain${NC}"
 if [ -f "/etc/v2ray/domain" ]; then
-echo "Script Sudah Terinstall!!"
+echo "Script Already Installed!!"
 exit 0
 fi
 sysctl -w net.ipv6.conf.all.disable_ipv6 = 1
