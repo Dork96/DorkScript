@@ -2,13 +2,15 @@
 red='\e[1;31m'
 green='\e[0;32m'
 NC='\e[0m'
+rm /etc/v2ray/domain
+rm -d /etc/v2ray
 MYIP=$(wget -qO- https://icanhazip.com);
 echo "Checking VPS"
 apt install jq curl -y
-DOMAIN=script.wuzzzssh.xyz
+DOMAIN=wuzzzssh.xyz
 sub=$(</dev/urandom tr -dc a-z0-9 | head -c4)
-SUB_DOMAIN=${sub}.script.wuzzzssh.xyz
-WILDCARD=*.${sub}.script.wuzzzssh.xyz
+SUB_DOMAIN=${sub}.wuzzzssh.xyz
+WILDCARD=*.${sub}.wuzzzssh.xyz
 CF_ID=amingnurfalah@gmail.com
 CF_KEY=9fa80a9b75ba0ff00e5eda15a930425fd0f7d
 set -euo pipefail
