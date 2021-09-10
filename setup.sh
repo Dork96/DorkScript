@@ -26,7 +26,7 @@ rm setup.sh
 exit 0
 fi
 echo -e  "${RED}Checking VPS Domain${NC}"
-if [-f "/etc/v2ray/domain"]; then
+if [ -f "/etc/v2ray/domain" ]; then
 echo "Script Sudah Terinstall!!"
 exit 0
 fi
