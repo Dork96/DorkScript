@@ -6,10 +6,6 @@ NC='\e[0m'
 MYIP=$(wget -qO- icanhazip.com);
 echo -e  "${RED}Checking VPS${NC}"
 sleep 2
-if [-f "/etc/v2ray/domain"]; then
-echo "Script Sudah Terinstall!!"
-exit 0
-fi
 IZIN=$(curl https://raw.githubusercontent.com/Dork96/rentScript/main/ipvps | grep $MYIP)
 if [ $MYIP = $IZIN ]; then
 echo -e "${GREEN}Permission Accepted...${NC}"
@@ -27,6 +23,11 @@ echo -e ""
 echo -e "======================================="
 echo -e ""
 rm setup.sh
+exit 0
+fi
+echo -e  "${RED}Checking VPS Domain${NC}"
+if [-f "/etc/v2ray/domain"]; then
+echo "Script Sudah Terinstall!!"
 exit 0
 fi
 sysctl -w net.ipv6.conf.all.disable_ipv6 = 1
