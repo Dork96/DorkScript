@@ -1,8 +1,10 @@
 #!/bin/bash
 
 clear
-
-figlet THIRASTORE | lolcat
+figlet -f slant PREMIUM SCRIPT | lolcat
+red='\x1b[91m'
+cyan='\x1b[96m'
+off='\x1b[m'
 
 if [[ -e /etc/debian_version ]]; then
 	OS=debian
@@ -12,221 +14,128 @@ elif [[ -e /etc/centos-release || -e /etc/redhat-release ]]; then
 	RCLOCAL='/etc/rc.d/rc.local'
 	chmod +x /etc/rc.d/rc.local
 else
-	echo "Scripy Install Hanya Bekerja Pada Operating System Debian, Ubuntu dan Centos"
-	exit
+        echo -e "${red}OS TIDAK SUPPORT !!!${off}"
+	echo -e "${red}Scripy Install Hanya Bekerja Pada Operating System Debian, Ubuntu dan Centos${off}"
+	exit 0
 fi
+declare -A nama_bulan
+nama_bulan[Jan]="Januari"
+nama_bulan[Feb]="Februari"
+nama_bulan[Mar]="Maret"
+nama_bulan[Apr]="April"
+nama_bulan[May]="Mei"
+nama_bulan[Jun]="Juni"
+nama_bulan[Jul]="Juli"
+nama_bulan[Aug]="Agustus"
+nama_bulan[Sep]="September"
+nama_bulan[Oct]="Oktober"
+nama_bulan[Nov]="November"
+nama_bulan[Dec]="Desember"
+bulan_ini=`date +%b`
+
 color3='\e[031;1m'
 color2='\e[34;1m'
 red='\e[1;31m'
 green='\e[0;32m'
 NC='\e[0m'
-spinner=( 0oooo o0ooo oo0oo ooo0o oooo0 )
-spin () {
-  while [ 1 ]
-  do 
-    for i in "${spinner[@]}"
-     do
-       echo -ne "\r$i"
-       sleep 0.2
-    done
-  done
- }
+COUNTRY=$(curl -s ipinfo.io/country )
 ISP=$(curl -s ipinfo.io/org | cut -d " " -f 2-10 )
 CITY=$(curl -s ipinfo.io/city )
 WKT=$(curl -s ipinfo.io/timezone )
 IPVPS=$(curl -s ipinfo.io/ip )
-jam=$(date +"%T")
+jam=$(TZ='Asia/Jakarta' date +%R)
 hari=$(date +"%A")
-tnggl=$(date +"%d-%B-%Y")
+tnggl=$(date +"%d")
+bln=${nama_bulan[$bulan_ini]}
+thn=$(date +"%Y")
 source /var/lib/premium-script/ipvps.conf
 if [[ "$IP" = "" ]]; then
-domain=$(cat /home/domain)
+domain=$(cat /etc/v2ray/domain)
 else
 domain=$IP
 fi
-	echo -e "${green}══════════════════════════════════════════════════════════${NC}"
-	cname=$( awk -F: '/model name/ {name=$2} END {print name}' /proc/cpuinfo )
-	cores=$( awk -F: '/model name/ {core++} END {print core}' /proc/cpuinfo )
-	freq=$( awk -F: ' /cpu MHz/ {freq=$2} END {print freq}' /proc/cpuinfo )
-	tram=$( free -m | awk 'NR==2 {print $2}' )
-	swap=$( free -m | awk 'NR==4 {print $2}' )
-	up=$(uptime|awk '{ $1=$2=$(NF-6)=$(NF-5)=$(NF-4)=$(NF-3)=$(NF-2)=$(NF-1)=$NF=""; print }')
-        echo -e "${red}Waktu               :${NC} $jam"
-        echo -e "${red}Hari                :${NC} $hari"
-        echo -e "${red}Tanggal             :${NC} $tnggl"
-        echo -e "${green}══════════════════════════════════════════════════════════${NC}"
-	echo -e "${red}CPU Model           :${NC} $cname"
-	echo -e "${red}Number Of Cores     :${NC}  $cores"
-	echo -e "${red}CPU Frequency       :${NC} $freq MHz"
-	echo -e "${red}Amount Of RAM       :${NC}  $tram MB"
-	echo -e "${red}Amount Of Swap      :${NC}  $swap MB"
-	echo -e "${red}System Uptime       :${NC} $up"
-	echo -e "${red}ISP Name            :${NC}  $ISP"
-	echo -e "${red}City                :${NC}  $CITY"
-	echo -e "${red}IP VPS              :${NC}  $IPVPS"
-	echo -e "${red}Domain              :${NC}  $domain"
-	echo -e "${green}══════════════════════════════════════════════════════════${NC}"
-echo -e "                                        MENU SYSTEM " | lolcat
-echo -e "${green}═══════════════════════════════════════════════════════════${NC}"
-echo -e "  1 =>  Masukkan Domain/Host          11 =>  Limit Bandwith Server"
-echo -e "  2 =>  Masukkan Subdomain              12 =>  Cek Ram VPS"
-echo -e "  3 =>  Perbarui Sertifikat V2RAY        13 =>  Ganti Password VPS"
-echo -e "  4 =>  Ubah Port VPN                            14 =>  Reboot VPS"
-echo -e "  5 =>  Autobackup Data VPS               15 =>  Speedtest VPS"
-echo -e "  6 =>  Backup Data VPS                        16 => Informasi Display System"
-echo -e "  7 =>  Restore Data VPS                        17 =>  Info Script Auto Install"
-echo -e "  8 =>  Menu Webmin                              18 => Restart Service"
-echo -e "  9 =>  Atur Auto Reboot                        19 =>  Atur Multi Login SSH"
-echo -e " 10 => Edit Banner SSH                          20 =>  Restart Script"
-echo -e "${green}══════════════════════════════════════════════════════════${NC}"
-echo -e "  0 ⸩ Kembali Ke Menu Utama              x ⸩  Keluar Dari Terminal"
-echo -e "${green}══════════════════════════════════════════════════════════${NC}"
+cname=$( awk -F: '/model name/ {name=$2} END {print name}' /proc/cpuinfo )
+cores=$( awk -F: '/model name/ {core++} END {print core}' /proc/cpuinfo )
+freq=$( awk -F: ' /cpu MHz/ {freq=$2} END {print freq}' /proc/cpuinfo )
+tram=$( free -m | awk 'NR==2 {print $2}' )
+swap=$( free -m | awk 'NR==4 {print $2}' )
+up=$(uptime|awk '{ $1=$2=$(NF-6)=$(NF-5)=$(NF-4)=$(NF-3)=$(NF-2)=$(NF-1)=$NF=""; print }')
+	
+echo -e "${red}══════════════════════════════════════════════════════════${NC}"
+echo -e "                    INFORMASI VPS" | lolcat
+echo -e "${red}══════════════════════════════════════════════════════════${NC}"
+echo -e " ${white}Zona Waktu             :  Asia/Jakarta ${NC}"
+echo -e " ${white}Waktu                  :  $jam WIB ${NC}"
+echo -e " ${white}Hari                   :  $hari ${NC}"
+echo -e " ${white}Tanggal                :  $tnggl $bln $thn ${NC}"
+echo -e "${red}══════════════════════════════════════════════════════════${NC}"
+echo -e " ${white}Model CPU              : $cname ${NC}"
+echo -e " ${white}Nomor Core             :  $cores ${NC}"
+echo -e " ${white}Frekuensi CPU          : $freq MHz ${NC}"
+echo -e " ${white}Jumlah RAM             :  $tram MB ${NC}"
+echo -e " ${white}Jumlah Swap            :  $swap MB ${NC}"
+echo -e " ${white}Waktu Aktif            : $up ${NC}"
+echo -e " ${white}ISP                    :  $ISP ${NC}"
+echo -e " ${white}COUNTRY                :  $COUNTRY ${NC}"
+echo -e " ${white}CITY                   :  $CITY ${NC}"
+echo -e " ${white}IP VPS                 :  $IPVPS ${NC}"
+echo -e " ${white}Host VPS               :  $domain ${NC}"
+echo -e "${red}══════════════════════════════════════════════════════════${NC}"
+echo -e "                      MENU TUNNELING " | lolcat
+echo -e "${red}══════════════════════════════════════════════════════════${NC}"
+echo -e "${white}"
+echo -e "[ 01 ] :  Menu SSH & OVPN / WS         "
+echo -e "[ 02 ] :  Menu Wireguard               "
+echo -e "[ 03 ] :  Menu L2TP / PPTP / SSTP      "
+echo -e "[ 04 ] :  Menu Shadowsocks / R         "
+echo -e "[ 05 ] :  Menu VMess / VLess           "
+echo -e "[ 06 ] :  Menu Trojan                  "
 echo -e ""
-read -p "  [ # ] Masukkan Nomor Pilihanmu :  "  num
-
-echo -e ""
+echo -e "[ 11 ] :  Menu System"
+echo -e "${off}"
+echo -e "${red}══════════════════════════════════════════════════════════${NC}"
+echo -e "  ${white}x =>  Keluar Dari Terminal${off}"
+echo -e "${red}══════════════════════════════════════════════════════════${NC}"
+echo -e "${white}"
+read -p " [ # ] Select From Options :  "  num
+echo -e "${off}"
 
 case $num in
-
 1)
-
-add-host
-
+menu-ssh
 ;;
 
 2)
-
-hostnya
-
+menu-wr
 ;;
 
 3)
-
-certv2ray
-
+menu-l2tp
 ;;
 
 4)
-
-change-port
-
+menu-ssr
 ;;
 
 5)
-
-autobackup
-
+menu-v2ray
 ;;
 
 6)
-
-backup
-
-;;
-
-7)
-
-restore
-
-;;
-
-8)
-
-wbmn
-
-;;
-
-9)
-
-limit-speed
-
-;;
-
-10)
-
-ram
-
+menu-tr
 ;;
 
 11)
-
-passwd
-
-;;
-
-12)
-
-reboot
-
-;;
-
-13)
-
-speedtest
-
-;;
-
-14)
-
-info
-
-;;
-
-15)
-
-about
-
-;;
-
-16)
-
-restart
-
-;;
-
-17)
-
-auto-reboot
-
-;;
-
-18)
-
-autokill
-
-;;
-
-19)
-
-nano /etc/banner.net
-
-;;
-
-20)
-
-updatee
-
-;;
-
-0)
-
-menu
-
+menu-system
 ;;
 
 x)
-
 exit
-
 ;;
-
 *)
-
-echo "Nomor Yang Anda Masukkan Salah!"
+echo -e "${red}Please enter an correct number${off}"
 sleep 1
 clear
 menu
-
 ;;
-
 esac
