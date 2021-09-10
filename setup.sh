@@ -20,6 +20,7 @@ echo -e "Contact WA https//wa.me/+6285717614888"
 echo -e "For Registration IP VPS"
 echo -e "======================================="
 echo -e ""
+rm setup.sh
 exit 0
 fi
 
