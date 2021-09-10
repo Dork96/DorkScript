@@ -32,48 +32,31 @@ exit 0
 fi
 sysctl -w net.ipv6.conf.all.disable_ipv6 = 1
 sysctl -w net.ipv6.conf.default.disable_ipv6 = 1
-apt update
+apt-get update
 apt install -y bzip2 gzip coreutils screen curl
 
 mkdir /var/lib/premium-script;
 echo "IP=" >> /var/lib/premium-script/ipvps.conf
 
 #Cloudflare
-wget https://raw.githubusercontent.com/Dork96/DorkScript/main/cf.sh
+wget https://raw.githubusercontent.com/Dork96/DorkScript/main/cf.sh && chmod +x cf.sh && ./cf.sh
 #SSH OVPN
-wget https://raw.githubusercontent.com/Dork96/DorkScript/main/ssh-vpn.sh
-wget https://raw.githubusercontent.com/Dork96/DorkScript/main/sstp.sh
+wget https://raw.githubusercontent.com/Dork96/DorkScript/main/ssh-vpn.sh && chmod +x ssh-vpn.sh && ./ssh-vpn.sh
+wget https://raw.githubusercontent.com/Dork96/DorkScript/main/sstp.sh && chmod +x sstp.sh && ./sstp.sh
 #SSR
-wget https://raw.githubusercontent.com/Dork96/DorkScript/main/ssr.sh
-wget https://raw.githubusercontent.com/Dork96/DorkScript/main/sodosok.sh
+wget https://raw.githubusercontent.com/Dork96/DorkScript/main/ssr.sh && chmod +x ssr.sh && ./ssr.sh
+wget https://raw.githubusercontent.com/Dork96/DorkScript/main/sodosok.sh && chmod +x sodosok.sh && ./sodosok.sh
 #WG
-wget https://raw.githubusercontent.com/Dork96/DorkScript/main/wg.sh
+wget https://raw.githubusercontent.com/Dork96/DorkScript/main/wg.sh && chmod +x wg.sh && ./wg.sh
 #V2RAY
-wget https://raw.githubusercontent.com/Dork96/DorkScript/main/ins-vt.sh
+wget https://raw.githubusercontent.com/Dork96/DorkScript/main/ins-vt.sh && chmod +x ins-vt.sh && .ins-vt.sh
 #L2TP
-wget https://raw.githubusercontent.com/Dork96/DorkScript/main/ipseco.sh
-wget https://raw.githubusercontent.com/Dork96/DorkScript/main/set-br.sh
+wget https://raw.githubusercontent.com/Dork96/DorkScript/main/ipsec.sh && chmod +x ipsec.sh && ./ipsec.sh
+wget https://raw.githubusercontent.com/Dork96/DorkScript/main/set-br.sh && chmod +x set-br.sh && ./set-br.sh 
 
-cd Dork-script
-chmod +x cf.sh
-chmod +x ssh-vpn.sh
-chmod +x sstp.sh
-chmod +x ssr.sh
-chmod +x sodosok.sh
-chmod +x wg.sh
-chmod +x ins-vt.sh
-chmod +x ipsec.sh
-chmod +x set-br.sh
-
-./cf.sh
-./ssh-vpn.sh
-./sstp.sh
-./ssr.sh
-./sodosok.sh
-./wg.sh
-./ins-vt.sh
-./ipsec.sh
-./set-br.sh
+sudo apt-get install figlet
+sudo apt-get install ruby
+sudo gem install lolcat
 
 cat <<EOF > /etc/systemd/system/autosett.service
 [Unit]
