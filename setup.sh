@@ -1,8 +1,6 @@
 #!/bin/bash
 
-if ["$ {
-    EUID
-}" -ne 0]; then
+if ["${EUID}" -ne 0]; then
 echo "Jalankan Scrip Dalam Direktori Root Mode"
 exit 1
 fi
