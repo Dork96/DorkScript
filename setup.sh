@@ -2,16 +2,7 @@
 RED='\e[1;31m'
 GREEN='\e[0;32m'
 BLUE='\e[0;34m'
-NC='\e[0m
-
-if ["${EUID}" -ne 0]; then
-echo "Jalankan Scrip Dalam Direktori Root Mode"
-exit 1
-fi
-[-f "/etc/v2ray/domain"]; then
-echo "Script Sudah Terinstall!!"
-exit 0
-fi
+NC='\e[0m'
 MYIP=$(wget -qO- icanhazip.com);
 echo -e  "${RED}Checking VPS${NC}"
 sleep 2
@@ -23,7 +14,8 @@ else
 clear
 echo -e ""
 echo -e "======================================="
-echo -e "${RED}===[ Permission Denied...!!! ]===${NC}";
+echo -e "${RED}====[ Permission Denied...!!! ]===={NC}"
+echo -e "     IP VPS ANDA BELUM TERDAFTAR"
 echo -e "Contact WA https//wa.me/+6285717614888"
 echo -e "For Registration IP VPS"
 echo -e "======================================="
